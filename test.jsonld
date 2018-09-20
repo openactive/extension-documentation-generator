@@ -1,0 +1,96 @@
+{
+  "@context": [
+    "https://openactive.io/extension",
+    { "beta": "https://openactive.io/ns-beta#" }
+  ],
+  "@graph": [
+    {
+      "id": "beta:specialRequirements",
+      "type": "Property",
+      "label": "specialRequirements",
+      "comment": "List of related special requirements from a controlled vocabulary.",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "skos:Concept" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/20"
+    },
+    {
+      "id": "beta:accessibilityWheelchairAccess",
+      "type": "Property",
+      "label": "accessibilityWheelchairAccess",
+      "comment": "A property that details whether the event is suitable for wheelchair access. Placed on Event as this field could be used to detail whether the Event is suitable, as well as the Place.",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:Boolean" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/21"
+    },
+    {
+      "id": "beta:formattedDescription",
+      "type": "Property",
+      "label": "formattedDescription",
+      "comment": "Sometimes a description is stored with formatting (e.g. href, bold, italics, embedded YouTube videos). This formatting can be useful for data consumers.",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:Text" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/2"
+    },
+    {
+      "id": "beta:distance",
+      "type": "Property",
+      "label": "distance",
+      "comment": "The distance of a run, cycle or other activity. Must also include units.",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:QuantitativeValue" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/3"
+    },
+    {
+      "id": "beta:availability",
+      "type": "Property",
+      "label": "availability",
+      "comment": "For data publishers not wishing to disclose the granular availability of their sessions openly.",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:Text" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/9"
+    },
+    {
+      "id": "beta:attendeeCount",
+      "type": "Property",
+      "label": "attendeeCount",
+      "comment": "For events that have an unlimited number of tickets, captures the number of attendees (actual attendance).",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:Integer" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/12"
+    },
+    {
+      "id": "beta:registrationCount",
+      "type": "Property",
+      "label": "registrationCount",
+      "comment": "For events that have an unlimited number of tickets, captures the number of registrations (intention to attend).",
+      "domainIncludes": [ "schema:Event" ],
+      "rangeIncludes": [ "schema:Integer" ],
+      "githubIssue": "https://github.com/openactive/ns-beta/issues/13"
+    },
+    {
+      "id": "beta:course",
+      "type": "Property",
+      "label": "course",
+      "comment": "This course for which this is an offering.",
+      "domainIncludes": [ "schema:CourseInstance" ],
+      "rangeIncludes": [ "schema:Course" ],
+      "githubIssue": "https://github.com/openactive/modelling-opportunity-data/issues/164"
+    },
+    {
+      "id": "beta:logo",
+      "type": "Property",
+      "label": "logo",
+      "comment": "An associated logo for a course.",
+      "domainIncludes": [ "schema:Course" ],
+      "rangeIncludes": [ "schema:ImageObject" ],
+      "githubIssue": "https://github.com/openactive/modelling-opportunity-data/issues/164"
+    },
+    {
+      "id": "https://openactive.io/ns-beta#Member",
+      "type": "schema:BusinessEntityType",
+      "label": "Member",
+      "comment": "Indicates that a customer (eligableCustomerType) is a member of the business.",
+      "githubIssue": "https://github.com/openactive/modelling-opportunity-data/issues/80"
+    }
+  ]
+}
