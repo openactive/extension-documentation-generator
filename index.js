@@ -107,7 +107,7 @@ var enumHeading = `
 |---------------|----------|-------------|--------------------------------------------------------------------------------|
 `;
 function mapEnumToTable(node) {
-  return "| `" + formatReference(node.type) + "` | `" + node.id + "` | " + renderGitHubIssueLink(node.githubIssue) + " | " + node.comment + " |\n"
+  return "| " + formatReference(node.type) + " | `" + node.id + "` | " + renderGitHubIssueLink(node.githubIssue) + " | " + node.comment + " |\n"
 }
 
 var sortEnum = sortBy("type", "id");
