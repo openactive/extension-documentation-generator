@@ -105,8 +105,8 @@ var classHeading = `
 
 ## Classes
 
-| Class                      | subClass ` + (includeIssues ? "| Proposal   " : "") + `| Description                                                                                 |
-|----------------------------|----------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------------------------------|
+| Class                      | subClasses ` + (includeIssues ? "| Proposal   " : "") + `| Description                                                                                 |
+|----------------------------|------------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------------------------------|
 `;
 function mapClassToTable(node) {
   return `| <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.githubIssue) + " | " : "" )+ node.comment + " |\n"
