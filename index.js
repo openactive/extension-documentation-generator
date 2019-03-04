@@ -1,12 +1,16 @@
 var fs = require('fs');
 
 if (process.argv.length < 4) {
-  console.error("Arguments required: context.jsonld markdown.md ");
+  console.error("Arguments required: context.jsonld markdown.md with-issues");
   return;
 }
 
-var header = fs.readFileSync("test.md", 'utf8');
-var context = JSON.parse(fs.readFileSync("test.jsonld", 'utf8'));
+var includeIssues = process.argv.slice(2)[2] || "" == 'with-issues';
+var headerFile = process.argv.slice(2)[1];
+var contextFile = process.argv.slice(2)[0];
+
+var header = fs.readFileSync(headerFile, 'utf8');
+var context = JSON.parse(fs.readFileSync(contextFile, 'utf8'));
 
 var extensionContext = {
   "schema": "https://schema.org/",
@@ -65,19 +69,31 @@ function renderGitHubIssueLink(url) {
   return "[#" + issueNumber + "](" + url + ")";
 }
 
+function removePrefix(str) {
+  if (str.indexOf("#") > -1) { 
+    return str.substring(str.lastIndexOf("#") + 1);
+  } else if (str.indexOf("/") > -1) { 
+    return str.substring(str.lastIndexOf("/") + 1);
+  } else if (str.indexOf(":") > -1) {
+    return str.substring(str.lastIndexOf(":") + 1);
+  } else {
+    return str;
+  }
+}
+
 var propHeading = `
 
 
 ## Properties
 
-| (Class) Property    |  Expected Type  | Proposal   | Description                                                         |
-|---------------------|-----------------|------------|---------------------------------------------------------------------|
+| (Class) Property    |  Expected Type  ` + (includeIssues ? "| Proposal   " : "") + `| Description                                                         |
+|---------------------|-----------------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------|
 `;
 
 
 
 function mapPropertyToTable(node) {
-  return "| (" + formatReference(node.domainIncludes) + ") <br/> `" + node.id + "` | " + formatReference(node.rangeIncludes) + " | " + renderGitHubIssueLink(node.githubIssue) + " | " + node.comment + " |\n"
+  return `| <a name="` + removePrefix(node.id) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node.id + "` | " + formatReference(node.rangeIncludes) + (includeIssues ? " | " + renderGitHubIssueLink(node.githubIssue) : "" ) + " | " + node.comment + " |\n"
 }
 
 var sortProps = sortBy("domainIncludes", "id");
@@ -89,11 +105,11 @@ var classHeading = `
 
 ## Classes
 
-| Class                      | subClass | Proposal    | Description                                                                                 |
-|----------------------------|----------|-------------|---------------------------------------------------------------------------------------------|
+| Class                      | subClass ` + (includeIssues ? "| Proposal   " : "") + `| Description                                                                                 |
+|----------------------------|----------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------------------------------|
 `;
 function mapClassToTable(node) {
-  return "| `" + node.id + "` | " + formatReference(node.subClassOf) + " | " + renderGitHubIssueLink(node.githubIssue) + " | " + node.comment + " |\n"
+  return `| <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.githubIssue) + " | " : "" )+ node.comment + " |\n"
 }
 
 var sortClass = sortBy("subClassOf", "id");
@@ -103,11 +119,11 @@ var enumHeading = `
 
 ## Enumeration Values
 
-| Type          | Value    | Proposal    | Description                                                                    |
-|---------------|----------|-------------|--------------------------------------------------------------------------------|
+| Type          | Value    ` + (includeIssues ? "| Proposal   " : "") + `| Description                                                                    |
+|---------------|----------` + (includeIssues ? "|------------" : "") + `|--------------------------------------------------------------------------------|
 `;
 function mapEnumToTable(node) {
-  return "| " + formatReference(node.type) + " | `" + node.id + "` | " + renderGitHubIssueLink(node.githubIssue) + " | " + node.comment + " |\n"
+  return "| " + formatReference(node.type) + ` | <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + (includeIssues ? renderGitHubIssueLink(node.githubIssue) + " | " : "" ) + node.comment + " |\n"
 }
 
 var sortEnum = sortBy("type", "id");
