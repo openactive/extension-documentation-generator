@@ -93,7 +93,7 @@ var propHeading = `
 
 
 function mapPropertyToTable(node) {
-  return `| <a name="` + removePrefix(node.id) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node.id + "` | " + formatReference(node.rangeIncludes) + (includeIssues ? " | " + renderGitHubIssueLink(node.githubIssue) : "" ) + " | " + node.comment + " |\n"
+  return `| <a name="` + removePrefix(node.id) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node.id + "` | " + formatReference(node.rangeIncludes) + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + node.comment + " |\n"
 }
 
 var sortProps = sortBy("domainIncludes", "id");
@@ -109,7 +109,7 @@ var classHeading = `
 |----------------------------|------------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------------------------------|
 `;
 function mapClassToTable(node) {
-  return `| <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.githubIssue) + " | " : "" )+ node.comment + " |\n"
+  return `| <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" )+ node.comment + " |\n"
 }
 
 var sortClass = sortBy("subClassOf", "id");
@@ -123,7 +123,7 @@ var enumHeading = `
 |---------------|----------` + (includeIssues ? "|------------" : "") + `|--------------------------------------------------------------------------------|
 `;
 function mapEnumToTable(node) {
-  return "| " + formatReference(node.type) + ` | <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + (includeIssues ? renderGitHubIssueLink(node.githubIssue) + " | " : "" ) + node.comment + " |\n"
+  return "| " + formatReference(node.type) + ` | <a name="` + removePrefix(node.id) + `"></a>` + " `" + node.id + "` | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" ) + node.comment + " |\n"
 }
 
 var sortEnum = sortBy("type", "id");
