@@ -1,6 +1,6 @@
 {
   "name": "extension-documentation-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate documentation for OpenActive extensions",
   "main": "index.js",
   "scripts": {
