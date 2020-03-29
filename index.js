@@ -96,7 +96,7 @@ function mapPropertyToTable(node) {
   return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node['@id'] + "` | " + formatReference(node.rangeIncludes) + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + node.comment + " |\n"
 }
 
-var sortProps = sortBy("domainIncludes", "id");
+var sortProps = sortBy("domainIncludes", "@id");
 
 
 
@@ -112,7 +112,7 @@ function mapClassToTable(node) {
   return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" )+ node.comment + " |\n"
 }
 
-var sortClass = sortBy("subClassOf", "id");
+var sortClass = sortBy("subClassOf", "@id");
 
 var enumHeading = `
 
@@ -126,7 +126,7 @@ function mapEnumToTable(node) {
   return "| " + formatReference(node['@type']) + ` | <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" ) + node.comment + " |\n"
 }
 
-var sortEnum = sortBy("type", "id");
+var sortEnum = sortBy("@type", "@id");
 
 var nodes = context["@graph"];
 var properties = nodes.filter(x => x['@type'] == "Property").sort(sortProps).map(mapPropertyToTable);
