@@ -17,7 +17,8 @@ var extensionContext = {
   "pending": "http://pending.schema.org/",
   "skos": "http://www.w3.org/2004/02/skos/core#",
   "oa": "https://openactive.io/",
-  "beta": "https://openactive.io/ns-beta#"
+  "beta": "https://openactive.io/ns-beta#",
+  "test": "https://openactive.io/test-interface#"
 }
 
 function firstIfArray(x) {
