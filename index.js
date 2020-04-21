@@ -24,20 +24,19 @@ function firstIfArray(x) {
   return Array.isArray(x) ? (x.length > 0 ? x[0] : "") : x;
 }
 
-function addLink(x) {
-  var segments = x.split(":");
-  if (segments.length > 1) {
-    var url = x.indexOf("http") > -1 ? x : 
-                (extensionContext[segments[0]] + segments[1]);
-    return "[`" + x + "`](" + url + ")";
-  } else {
-    return "`" + x + "`";
-  }
-}
-
-function formatReference(x) {
+function formatReference(x, separator = ", ", isArray = false) {
   var arrayOfX = Array.isArray(x) ? x : [x];
-  return arrayOfX.map(addLink).join(", ");
+  return arrayOfX.map((x) => {
+    var segments = x.split(":");
+    var arrayPrefix = isArray ? "Array of " : "";
+    if (segments.length > 1) {
+      var url = x.indexOf("http") > -1 ? x : 
+                  (extensionContext[segments[0]] + segments[1]);
+      return arrayPrefix + "[`" + x + "`](" + url + ")";
+    } else {
+      return arrayPrefix + "`" + x + "`";
+    }
+  }).join(separator);
 }
 
 function sortBy(field1, field2) {
@@ -93,7 +92,7 @@ var propHeading = `
 
 
 function mapPropertyToTable(node) {
-  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node['@id'] + "` | " + formatReference(node.rangeIncludes) + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + node.comment + " |\n"
+  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node['@id'] + "` | " + formatReference(node.rangeIncludes, "<br/> - or - <br/>", node['@container'] == '@list') + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + node.comment + " |\n"
 }
 
 var sortProps = sortBy("domainIncludes", "@id");
