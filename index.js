@@ -65,7 +65,7 @@ function sortBy(field1, field2) {
 }
 
 function renderGitHubIssueLink(url) {
-  if (url) {
+  if (url !== undefined) {
     var splitUrl = url.split("/");
     var issueNumber = splitUrl[splitUrl.length - 1];
     return "[#" + issueNumber + "](" + url + ")";
