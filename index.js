@@ -135,6 +135,10 @@ var output = header +
              (classes.length > 0 ? classHeading + classes.join("") : "") +
              (enums.length > 0 ? enumHeading + enums.join("") : "");
 
-console.log(output);
+var dir = './out';
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+fs.writeFileSync("./out/index.md", output); 
 
 
