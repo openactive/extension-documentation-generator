@@ -1,11 +1,11 @@
 # extension-documentation-generator
-Generates documentation for OpenActive extensions
+Generates documentation for OpenActive vocabulary extensions
 
-This GitHub Action generates an index.md file from a JSON-LD extension context, useful for serving documentation via GitHub Pages.
+This GitHub Action generates an index.md file from a JSON-LD extension context, useful for serving OpenActive vocabulary extension documentation via GitHub Pages.
 
 ## Usage
 
-Create a new GitHub Action using the following template
+Create a new GitHub Action using the following template, in a repository that includes a `header.md` file and a `{prefix}.jsonld` context file in the root.
 
 ```yml
 name: Deploy to GitHub Pages
@@ -24,7 +24,7 @@ jobs:
         uses: openactive/extension-documentation-generator@master
         with:
           header: header.md
-          context: context.jsonld
+          context: {prefix}.jsonld
           with_issues: false
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -36,7 +36,7 @@ jobs:
 ```
 
 You may customise three parameters:
-1) `context` - jsonld context file used to generate the documentation, e.g. `context.jsonld` (this should be named according to the prefix of your namespace, e.g. `beta.jsonld`)
+1) `context` - jsonld context file used to generate the documentation. This should be named according to the prefix of your custom namespace, e.g. `beta.jsonld`.
 2) `header` - markdown file to prepended to the generated documentation, e.g. `header.md`
 3) `with_issues` - whether to include GitHub issues from the context in the generated documentation
 
