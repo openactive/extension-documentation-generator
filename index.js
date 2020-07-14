@@ -1,13 +1,9 @@
 var fs = require('fs');
+const core = require('@actions/core');
 
-if (process.argv.length < 4) {
-  console.error("Arguments required: context.jsonld markdown.md with-issues");
-  return;
-}
-
-var includeIssues = process.argv.slice(2)[2] || "" == 'with-issues';
-var headerFile = process.argv.slice(2)[1];
-var contextFile = process.argv.slice(2)[0];
+var includeIssues = core.getInput('with_issues');
+var headerFile = core.getInput('header');
+var contextFile = core.getInput('context');
 
 var header = fs.readFileSync(headerFile, 'utf8');
 var context = JSON.parse(fs.readFileSync(contextFile, 'utf8'));
