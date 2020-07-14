@@ -1,9 +1,9 @@
 var fs = require('fs');
 const core = require('@actions/core');
 
-var includeIssues = core.getInput('with_issues');
-var headerFile = core.getInput('header');
-var contextFile = core.getInput('context');
+var includeIssues = core.getInput('with_issues') === 'true';
+var headerFile = core.getInput('header', { required: true });
+var contextFile = core.getInput('context', { required: true });
 
 var header = fs.readFileSync(headerFile, 'utf8');
 var context = JSON.parse(fs.readFileSync(contextFile, 'utf8'));
