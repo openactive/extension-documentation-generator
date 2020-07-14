@@ -1,0 +1,20 @@
+name: 'OpenActive Extension Documentation Generator'
+description: 'Generate Markdown documentation for OpenActive custom namespaces'
+author: 'OpenActive Community'
+inputs:
+  context:
+    description: 'JSON-LD context used to generate the documentation'
+  header:
+    description: 'Markdown file to prepended to the output'
+  with_issues:
+    description: 'Whether to include referenced GitHub issues in documentation output'
+    default: false
+  output_file:
+    description: 'Where to output the markdown output'
+    default: ./out/index.md
+branding:
+  icon: 'align-left'
+  color: 'blue'
+runs:
+  using: 'node12'
+  main: 'index.js'
