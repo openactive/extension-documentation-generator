@@ -145,5 +145,5 @@ if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
 fs.writeFileSync("./out/index.md", output); 
-fs.copyFileSync(headerFile, `./out/${headerFile}`);
+fs.copyFileSync(contextFile, `./out/${contextFile}`);
 
