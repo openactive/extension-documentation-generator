@@ -13,9 +13,14 @@ var extensionContext = {
   "pending": "http://pending.schema.org/",
   "skos": "http://www.w3.org/2004/02/skos/core#",
   "oa": "https://openactive.io/",
-  "beta": "https://openactive.io/ns-beta#",
-  "test": "https://openactive.io/test-interface#"
+  "beta": "https://openactive.io/ns-beta#"
 }
+
+context['@context'].forEach(element => {
+  if (typeof element === 'object') {
+    Object.assign(extensionContext, element);
+  }
+});
 
 function firstIfArray(x) {
   return Array.isArray(x) ? (x.length > 0 ? x[0] : "") : x;
@@ -140,5 +145,5 @@ if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
 fs.writeFileSync("./out/index.md", output); 
-
+fs.copyFileSync(headerFile, `./out/${headerFile}`);
 
