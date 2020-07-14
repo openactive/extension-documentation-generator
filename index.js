@@ -65,9 +65,13 @@ function sortBy(field1, field2) {
 }
 
 function renderGitHubIssueLink(url) {
-  var splitUrl = url.split("/");
-  var issueNumber = splitUrl[splitUrl.length - 1];
-  return "[#" + issueNumber + "](" + url + ")";
+  if (url) {
+    var splitUrl = url.split("/");
+    var issueNumber = splitUrl[splitUrl.length - 1];
+    return "[#" + issueNumber + "](" + url + ")";
+  } else {
+    return ' ';
+  }
 }
 
 function removePrefix(str) {
