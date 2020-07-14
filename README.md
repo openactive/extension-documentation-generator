@@ -40,3 +40,8 @@ You may customise three parameters:
 2) `header` - markdown file to prepended to the generated documentation, e.g. `header.md`
 3) `with_issues` - whether to include GitHub issues from the context in the generated documentation
 
+## Examples
+
+The following repositories make use of this GitHub Action:
+- https://github.com/openactive/ns-beta
+- https://github.com/openactive/test-interface
