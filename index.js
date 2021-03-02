@@ -86,6 +86,11 @@ function removePrefix(str) {
   }
 }
 
+function renderComment(node) {
+  var deprecationNotice = node.supersededBy ? `[DEPRECATED: This term has graduated from the beta namespace, please use ${formatReference(node.supersededBy)} instead. ` : '';
+  return deprecationNotice + node.comment;
+}
+
 var propHeading = `
 
 
@@ -98,7 +103,7 @@ var propHeading = `
 
 
 function mapPropertyToTable(node) {
-  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node['@id'] + "` | " + formatReference(node.rangeIncludes, "<br/> - or - <br/>", node['@container'] == '@list') + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + node.comment + " |\n"
+  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " (" + formatReference(node.domainIncludes) + ") <br/>  `" + node['@id'] + "` | " + formatReference(node.rangeIncludes, "<br/> - or - <br/>", node['@container'] == '@list') + (includeIssues ? " | " + renderGitHubIssueLink(node.discussionUrl) : "" ) + " | " + renderComment(node) + " |\n"
 }
 
 var sortProps = sortBy("domainIncludes", "@id");
@@ -114,7 +119,7 @@ var classHeading = `
 |----------------------------|------------` + (includeIssues ? "|------------" : "") + `|---------------------------------------------------------------------------------------------|
 `;
 function mapClassToTable(node) {
-  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" )+ node.comment + " |\n"
+  return `| <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + formatReference(node.subClassOf) + " | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" )+ renderComment(node) + " |\n"
 }
 
 var sortClass = sortBy("subClassOf", "@id");
@@ -128,7 +133,7 @@ var enumHeading = `
 |---------------|----------` + (includeIssues ? "|------------" : "") + `|--------------------------------------------------------------------------------|
 `;
 function mapEnumToTable(node) {
-  return "| " + formatReference(node['@type']) + ` | <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" ) + node.comment + " |\n"
+  return "| " + formatReference(node['@type']) + ` | <a name="` + removePrefix(node['@id']) + `"></a>` + " `" + node['@id'] + "` | " + (includeIssues ? renderGitHubIssueLink(node.discussionUrl) + " | " : "" ) + renderComment(node) + " |\n"
 }
 
 var sortEnum = sortBy("@type", "@id");
