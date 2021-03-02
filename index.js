@@ -87,7 +87,7 @@ function removePrefix(str) {
 }
 
 function renderComment(node) {
-  var deprecationNotice = node.supersededBy ? `[DEPRECATED: This term has graduated from the beta namespace, please use ${formatReference(node.supersededBy)} instead. ` : '';
+  var deprecationNotice = node.supersededBy ? `[**DEPRECATED:** This term has graduated from the beta namespace, please use ${formatReference(node.supersededBy)} instead.] ` : '';
   return deprecationNotice + node.comment;
 }
 
